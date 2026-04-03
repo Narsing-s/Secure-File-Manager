@@ -18,7 +18,7 @@ body {
     display: none;
     background: #1e293b;
     padding: 30px;
-    width: 340px;
+    width: 360px;
     border-radius: 12px;
     text-align: center;
 }
@@ -44,8 +44,8 @@ button {
     padding: 12px;
     margin-top: 10px;
     background: #2563eb;
-    color: white;
     border: none;
+    color: white;
     border-radius: 6px;
     cursor: pointer;
 }
@@ -62,16 +62,26 @@ ul {
 li {
     background: #334155;
     padding: 10px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-name {
     cursor: pointer;
 }
 
-li:hover {
-    background: #475569;
+.file-name:hover {
+    text-decoration: underline;
 }
 
-p {
-    color: #f87171;
-    margin-top: 10px;
+.delete-btn {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
 }
