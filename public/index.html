@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Vault</title>
 
-    <!-- ✅ CSS LINK -->
+    <!-- ✅ CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- 🔐 SET PIN SCREEN -->
+<!-- SET PIN -->
 <div id="setPinScreen" class="screen">
     <h2>Set Your PIN</h2>
     <input type="password" id="newPin" placeholder="Enter PIN">
@@ -19,7 +19,7 @@
     <p id="setPinError"></p>
 </div>
 
-<!-- 🔐 LOCK SCREEN -->
+<!-- LOCK -->
 <div id="lockScreen" class="screen">
     <h1>🔐 Secure Vault</h1>
     <input type="password" id="pinInput" placeholder="Enter PIN">
@@ -27,14 +27,14 @@
     <p id="errorText"></p>
 </div>
 
-<!-- 🏠 HOME -->
+<!-- HOME -->
 <div id="homeScreen" class="screen">
     <h2>Home</h2>
     <button onclick="showScreen('filesScreen')">📁 File Manager</button>
-    <button onclick="lockApp()">Lock App</button>
+    <button onclick="lockApp()">Lock</button>
 </div>
 
-<!-- 📁 FILE MANAGER -->
+<!-- FOLDERS -->
 <div id="filesScreen" class="screen">
     <h2>Folders</h2>
     <button onclick="openFolder('documents')">Documents</button>
@@ -43,7 +43,7 @@
     <button onclick="goHome()">Back</button>
 </div>
 
-<!-- 📂 FOLDER VIEW -->
+<!-- FILE VIEW -->
 <div id="folderScreen" class="screen">
     <h2 id="folderTitle"></h2>
 
@@ -55,7 +55,7 @@
     <button onclick="showScreen('filesScreen')">Back</button>
 </div>
 
-<!-- ✅ JS LINK -->
+<!-- ✅ JS -->
 <script src="script.js"></script>
 </body>
 </html>
