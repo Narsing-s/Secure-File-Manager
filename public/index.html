@@ -3,46 +3,57 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Secure File Vault</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Secure Vault</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Lock Screen -->
-    <div id="lockScreen" class="screen active">
-        <h1>🔐 Secure Vault</h1>
-        <input type="password" id="pinInput" placeholder="Enter PIN" />
-        <button onclick="unlockApp()">Unlock</button>
-        <p id="errorText"></p>
-    </div>
+<!-- 🔐 SET PIN SCREEN (FIRST TIME ONLY) -->
+<div id="setPinScreen" class="screen">
+    <h2>Set Your PIN</h2>
+    <input type="password" id="newPin" placeholder="Enter new PIN">
+    <input type="password" id="confirmPin" placeholder="Confirm PIN">
+    <button onclick="setPin()">Save PIN</button>
+    <p id="setPinError"></p>
+</div>
 
-    <!-- Home Screen -->
-    <div id="homeScreen" class="screen">
-        <h2>Welcome</h2>
-        <button onclick="showScreen('vaultScreen')">Private Vault</button>
-        <button onclick="showScreen('filesScreen')">All Files</button>
-        <button onclick="lockApp()">Lock App</button>
-    </div>
+<!-- 🔐 LOCK SCREEN -->
+<div id="lockScreen" class="screen">
+    <h1>🔐 Secure Vault</h1>
+    <input type="password" id="pinInput" placeholder="Enter PIN">
+    <button onclick="unlockApp()">Unlock</button>
+    <p id="errorText"></p>
+</div>
 
-    <!-- Vault Screen -->
-    <div id="vaultScreen" class="screen">
-        <h2>🔐 Private Vault</h2>
-        <p>No files added yet</p>
-        <button onclick="goHome()">Back</button>
-    </div>
+<!-- 🏠 HOME -->
+<div id="homeScreen" class="screen">
+    <h2>Home</h2>
+    <button onclick="showScreen('filesScreen')">📁 File Manager</button>
+    <button onclick="lockApp()">Lock</button>
+</div>
 
-    <!-- Files Screen -->
-    <div id="filesScreen" class="screen">
-        <h2>📁 All Files</h2>
-        <ul>
-            <li>Documents</li>
-            <li>Images</li>
-            <li>Videos</li>
-            <li>Audio</li>
-        </ul>
-        <button onclick="goHome()">Back</button>
-    </div>
+<!-- 📁 FILE MANAGER -->
+<div id="filesScreen" class="screen">
+    <h2>📁 Files</h2>
+    <button onclick="openFolder('documents')">Documents</button>
+    <button onclick="openFolder('images')">Images</button>
+    <button onclick="openFolder('videos')">Videos</button>
+    <button onclick="goHome()">Back</button>
+</div>
 
-    <script src="script.js"></script>
+<!-- 📂 FOLDER VIEW -->
+<div id="folderScreen" class="screen">
+    <h2 id="folderTitle"></h2>
+
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload File</button>
+
+    <ul id="fileList"></ul>
+
+    <button onclick="showScreen('filesScreen')">Back</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
