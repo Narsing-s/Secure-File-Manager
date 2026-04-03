@@ -18,7 +18,7 @@ body {
     display: none;
     background: #1e293b;
     padding: 30px;
-    width: 340px;
+    width: 350px;
     border-radius: 12px;
     text-align: center;
 }
@@ -44,8 +44,8 @@ button {
     padding: 12px;
     margin-top: 10px;
     background: #2563eb;
-    color: white;
     border: none;
+    color: white;
     border-radius: 6px;
     cursor: pointer;
 }
