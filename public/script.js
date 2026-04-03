@@ -10,8 +10,16 @@ window.onload = () => {
 function setPin() {
     const pin = newPin.value;
     const confirm = confirmPin.value;
-    if (pin.length < 4) return setPinError.textContent = "PIN must be 4 digits";
-    if (pin !== confirm) return setPinError.textContent = "PINs do not match";
+
+    if (pin.length < 4) {
+        setPinError.textContent = "PIN must be at least 4 digits";
+        return;
+    }
+    if (pin !== confirm) {
+        setPinError.textContent = "PINs do not match";
+        return;
+    }
+
     localStorage.setItem("userPin", pin);
     showScreen("lockScreen");
 }
@@ -27,14 +35,19 @@ function unlockApp() {
     pinInput.value = "";
 }
 
-/* NAV */
+/* NAVIGATION */
 function showScreen(id) {
     document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
 
-function goHome() { showScreen("homeScreen"); }
-function lockApp() { showScreen("lockScreen"); }
+function goHome() {
+    showScreen("homeScreen");
+}
+
+function lockApp() {
+    showScreen("lockScreen");
+}
 
 /* OPEN FOLDER */
 function openFolder(folder) {
@@ -55,8 +68,7 @@ function uploadFile() {
     files.push({
         name: file.name,
         size: file.size,
-        url: url,
-        type: file.type
+        url: url
     });
 
     localStorage.setItem(currentFolder, JSON.stringify(files));
@@ -64,21 +76,21 @@ function uploadFile() {
     loadFiles();
 }
 
-/* SHOW FILES + OPEN ON CLICK ✅ */
+/* LOAD & OPEN FILE */
 function loadFiles() {
     fileList.innerHTML = "";
 
     const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
 
-    if (!files.length) {
+    if (files.length === 0) {
         fileList.innerHTML = "<li>No files</li>";
         return;
     }
 
-    files.forEach(f => {
+    files.forEach(file => {
         const li = document.createElement("li");
-        li.textContent = `${f.name} (${Math.round(f.size / 1024)} KB)`;
-        li.onclick = () => window.open(f.url, "_blank");
+        li.textContent = `${file.name} (${Math.round(file.size / 1024)} KB)`;
+        li.onclick = () => window.open(file.url, "_blank");
         fileList.appendChild(li);
     });
 }
