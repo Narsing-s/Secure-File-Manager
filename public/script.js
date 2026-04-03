@@ -1,16 +1,16 @@
 let currentFolder = "";
 
-/* ---------- APP START ---------- */
+/* ✅ APP START */
 window.onload = () => {
-    const savedPin = localStorage.getItem("userPin");
-    if (!savedPin) {
+    const pin = localStorage.getItem("userPin");
+    if (!pin) {
         showScreen("setPinScreen");
     } else {
         showScreen("lockScreen");
     }
 };
 
-/* ---------- PIN SETUP ---------- */
+/* ✅ SET PIN */
 function setPin() {
     const pin = document.getElementById("newPin").value;
     const confirm = document.getElementById("confirmPin").value;
@@ -20,6 +20,7 @@ function setPin() {
         error.textContent = "PIN must be at least 4 digits";
         return;
     }
+
     if (pin !== confirm) {
         error.textContent = "PINs do not match";
         return;
@@ -29,13 +30,14 @@ function setPin() {
     showScreen("lockScreen");
 }
 
-/* ---------- UNLOCK ---------- */
+/* ✅ UNLOCK */
 function unlockApp() {
     const pin = document.getElementById("pinInput").value;
     const savedPin = localStorage.getItem("userPin");
 
     if (pin === savedPin) {
         showScreen("homeScreen");
+        document.getElementById("errorText").textContent = "";
     } else {
         document.getElementById("errorText").textContent = "Wrong PIN!";
     }
@@ -43,7 +45,7 @@ function unlockApp() {
     document.getElementById("pinInput").value = "";
 }
 
-/* ---------- NAVIGATION ---------- */
+/* ✅ NAVIGATION */
 function showScreen(id) {
     document.querySelectorAll(".screen").forEach(s =>
         s.classList.remove("active")
@@ -59,21 +61,23 @@ function lockApp() {
     showScreen("lockScreen");
 }
 
-/* ---------- FOLDERS ---------- */
+/* ✅ FOLDERS */
 function openFolder(folderName) {
     currentFolder = folderName;
-    document.getElementById("folderTitle").textContent = folderName.toUpperCase();
+    document.getElementById("folderTitle").textContent =
+        folderName.toUpperCase();
     loadFiles();
     showScreen("folderScreen");
 }
 
-/* ---------- FILE UPLOAD ---------- */
+/* ✅ FILE UPLOAD (WEB-SAFE SIMULATION) */
 function uploadFile() {
     const input = document.getElementById("fileInput");
     if (!input.files[0]) return;
 
     const file = input.files[0];
-    const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
+    const files =
+        JSON.parse(localStorage.getItem(currentFolder)) || [];
 
     files.push({
         name: file.name,
@@ -85,21 +89,23 @@ function uploadFile() {
     loadFiles();
 }
 
-/* ---------- SHOW FILES ---------- */
+/* ✅ SHOW FILES */
 function loadFiles() {
     const list = document.getElementById("fileList");
     list.innerHTML = "";
 
-    const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
+    const files =
+        JSON.parse(localStorage.getItem(currentFolder)) || [];
 
     if (files.length === 0) {
         list.innerHTML = "<li>No files</li>";
         return;
     }
 
-    files.forEach(f => {
+    files.forEach(file => {
         const li = document.createElement("li");
-        li.textContent = `${f.name} (${Math.round(f.size/1024)} KB)`;
+        li.textContent =
+            `${file.name} (${Math.round(file.size / 1024)} KB)`;
         list.appendChild(li);
     });
 }
