@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Vault</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Secure File Vault</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -29,21 +29,21 @@
 <!-- HOME -->
 <div id="homeScreen" class="screen">
     <h2>Home</h2>
-    <button onclick="showScreen('filesScreen')">📁 File Manager</button>
+    <button onclick="showScreen('foldersScreen')">📁 File Manager</button>
     <button onclick="lockApp()">Lock</button>
 </div>
 
 <!-- FOLDERS -->
-<div id="filesScreen" class="screen">
+<div id="foldersScreen" class="screen">
     <h2>Folders</h2>
-    <button onclick="openFolder('documents')">Documents</button>
-    <button onclick="openFolder('images')">Images</button>
-    <button onclick="openFolder('videos')">Videos</button>
+    <button onclick="openFolder('documents')">📄 Documents</button>
+    <button onclick="openFolder('images')">🖼 Images</button>
+    <button onclick="openFolder('videos')">🎥 Videos</button>
     <button onclick="goHome()">Back</button>
 </div>
 
-<!-- FILE VIEW -->
-<div id="folderScreen" class="screen">
+<!-- FILE LIST -->
+<div id="filesScreen" class="screen">
     <h2 id="folderTitle"></h2>
 
     <input type="file" id="fileInput">
@@ -51,7 +51,7 @@
 
     <ul id="fileList"></ul>
 
-    <button onclick="showScreen('filesScreen')">Back</button>
+    <button onclick="showScreen('foldersScreen')">Back</button>
 </div>
 
 <script src="script.js"></script>
