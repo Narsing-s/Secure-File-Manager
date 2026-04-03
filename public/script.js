@@ -30,7 +30,7 @@ function setPin() {
     showScreen("lockScreen");
 }
 
-/* ✅ UNLOCK */
+/* ✅ UNLOCK APP */
 function unlockApp() {
     const pin = document.getElementById("pinInput").value;
     const savedPin = localStorage.getItem("userPin");
@@ -47,9 +47,9 @@ function unlockApp() {
 
 /* ✅ NAVIGATION */
 function showScreen(id) {
-    document.querySelectorAll(".screen").forEach(s =>
-        s.classList.remove("active")
-    );
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
     document.getElementById(id).classList.add("active");
 }
 
@@ -61,23 +61,21 @@ function lockApp() {
     showScreen("lockScreen");
 }
 
-/* ✅ FOLDERS */
-function openFolder(folderName) {
-    currentFolder = folderName;
-    document.getElementById("folderTitle").textContent =
-        folderName.toUpperCase();
+/* ✅ OPEN FOLDER */
+function openFolder(folder) {
+    currentFolder = folder;
+    document.getElementById("folderTitle").textContent = folder.toUpperCase();
     loadFiles();
     showScreen("folderScreen");
 }
 
-/* ✅ FILE UPLOAD (WEB-SAFE SIMULATION) */
+/* ✅ UPLOAD FILE (WEB SAFE) */
 function uploadFile() {
     const input = document.getElementById("fileInput");
     if (!input.files[0]) return;
 
     const file = input.files[0];
-    const files =
-        JSON.parse(localStorage.getItem(currentFolder)) || [];
+    const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
 
     files.push({
         name: file.name,
@@ -89,13 +87,12 @@ function uploadFile() {
     loadFiles();
 }
 
-/* ✅ SHOW FILES */
+/* ✅ LOAD FILE LIST */
 function loadFiles() {
     const list = document.getElementById("fileList");
     list.innerHTML = "";
 
-    const files =
-        JSON.parse(localStorage.getItem(currentFolder)) || [];
+    const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
 
     if (files.length === 0) {
         list.innerHTML = "<li>No files</li>";
@@ -104,8 +101,7 @@ function loadFiles() {
 
     files.forEach(file => {
         const li = document.createElement("li");
-        li.textContent =
-            `${file.name} (${Math.round(file.size / 1024)} KB)`;
+        li.textContent = `${file.name} (${Math.round(file.size / 1024)} KB)`;
         list.appendChild(li);
     });
 }
