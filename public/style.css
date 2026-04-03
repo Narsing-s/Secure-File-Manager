@@ -1,27 +1,24 @@
-/* Reset */
 * {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-/* Body */
 body {
     background: #0f172a;
     color: white;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
-/* Screens */
 .screen {
     display: none;
     background: #1e293b;
     padding: 30px;
-    width: 320px;
+    width: 330px;
     border-radius: 12px;
     text-align: center;
 }
@@ -30,23 +27,25 @@ body {
     display: block;
 }
 
-/* Inputs */
+h1, h2 {
+    margin-bottom: 20px;
+}
+
 input {
-    padding: 10px;
     width: 100%;
-    margin: 15px 0;
+    padding: 12px;
+    margin-bottom: 10px;
     border-radius: 6px;
     border: none;
 }
 
-/* Buttons */
 button {
-    padding: 12px;
     width: 100%;
+    padding: 12px;
     margin-top: 10px;
     background: #2563eb;
-    border: none;
     color: white;
+    border: none;
     border-radius: 6px;
     cursor: pointer;
 }
@@ -55,22 +54,19 @@ button:hover {
     background: #1d4ed8;
 }
 
-/* Error text */
-#errorText {
-    color: #f87171;
-    margin-top: 10px;
-}
-
-/* Lists */
 ul {
     list-style: none;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 li {
     background: #334155;
     padding: 10px;
+    margin-bottom: 6px;
     border-radius: 6px;
-    margin-bottom: 8px;
 }
-``
+
+p {
+    color: #f87171;
+    margin-top: 10px;
+}
