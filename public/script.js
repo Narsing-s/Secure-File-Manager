@@ -1,107 +1,84 @@
 let currentFolder = "";
 
-/* ✅ APP START */
+/* APP START */
 window.onload = () => {
     const pin = localStorage.getItem("userPin");
-    if (!pin) {
-        showScreen("setPinScreen");
-    } else {
-        showScreen("lockScreen");
-    }
+    showScreen(pin ? "lockScreen" : "setPinScreen");
 };
 
-/* ✅ SET PIN */
+/* SET PIN */
 function setPin() {
-    const pin = document.getElementById("newPin").value;
-    const confirm = document.getElementById("confirmPin").value;
-    const error = document.getElementById("setPinError");
-
-    if (pin.length < 4) {
-        error.textContent = "PIN must be at least 4 digits";
-        return;
-    }
-
-    if (pin !== confirm) {
-        error.textContent = "PINs do not match";
-        return;
-    }
-
+    const pin = newPin.value;
+    const confirm = confirmPin.value;
+    if (pin.length < 4) return setPinError.textContent = "PIN must be 4 digits";
+    if (pin !== confirm) return setPinError.textContent = "PINs do not match";
     localStorage.setItem("userPin", pin);
     showScreen("lockScreen");
 }
 
-/* ✅ UNLOCK APP */
+/* UNLOCK */
 function unlockApp() {
-    const pin = document.getElementById("pinInput").value;
-    const savedPin = localStorage.getItem("userPin");
-
-    if (pin === savedPin) {
+    if (pinInput.value === localStorage.getItem("userPin")) {
         showScreen("homeScreen");
-        document.getElementById("errorText").textContent = "";
+        errorText.textContent = "";
     } else {
-        document.getElementById("errorText").textContent = "Wrong PIN!";
+        errorText.textContent = "Wrong PIN!";
     }
-
-    document.getElementById("pinInput").value = "";
+    pinInput.value = "";
 }
 
-/* ✅ NAVIGATION */
+/* NAV */
 function showScreen(id) {
-    document.querySelectorAll(".screen").forEach(screen => {
-        screen.classList.remove("active");
-    });
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
 
-function goHome() {
-    showScreen("homeScreen");
-}
+function goHome() { showScreen("homeScreen"); }
+function lockApp() { showScreen("lockScreen"); }
 
-function lockApp() {
-    showScreen("lockScreen");
-}
-
-/* ✅ OPEN FOLDER */
+/* OPEN FOLDER */
 function openFolder(folder) {
     currentFolder = folder;
-    document.getElementById("folderTitle").textContent = folder.toUpperCase();
+    folderTitle.textContent = folder.toUpperCase();
     loadFiles();
     showScreen("folderScreen");
 }
 
-/* ✅ UPLOAD FILE (WEB SAFE) */
+/* UPLOAD FILE */
 function uploadFile() {
-    const input = document.getElementById("fileInput");
-    if (!input.files[0]) return;
+    const file = fileInput.files[0];
+    if (!file) return;
 
-    const file = input.files[0];
+    const url = URL.createObjectURL(file);
     const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
 
     files.push({
         name: file.name,
-        size: file.size
+        size: file.size,
+        url: url,
+        type: file.type
     });
 
     localStorage.setItem(currentFolder, JSON.stringify(files));
-    input.value = "";
+    fileInput.value = "";
     loadFiles();
 }
 
-/* ✅ LOAD FILE LIST */
+/* SHOW FILES + OPEN ON CLICK ✅ */
 function loadFiles() {
-    const list = document.getElementById("fileList");
-    list.innerHTML = "";
+    fileList.innerHTML = "";
 
     const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
 
-    if (files.length === 0) {
-        list.innerHTML = "<li>No files</li>";
+    if (!files.length) {
+        fileList.innerHTML = "<li>No files</li>";
         return;
     }
 
-    files.forEach(file => {
+    files.forEach(f => {
         const li = document.createElement("li");
-        li.textContent = `${file.name} (${Math.round(file.size / 1024)} KB)`;
-        list.appendChild(li);
+        li.textContent = `${f.name} (${Math.round(f.size / 1024)} KB)`;
+        li.onclick = () => window.open(f.url, "_blank");
+        fileList.appendChild(li);
     });
 }
