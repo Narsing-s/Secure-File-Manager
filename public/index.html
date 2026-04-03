@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Secure File Vault</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- Lock Screen -->
+    <div id="lockScreen" class="screen active">
+        <h1>🔐 Secure Vault</h1>
+        <input type="password" id="pinInput" placeholder="Enter PIN" />
+        <button onclick="unlockApp()">Unlock</button>
+        <p id="errorText"></p>
+    </div>
+
+    <!-- Home Screen -->
+    <div id="homeScreen" class="screen">
+        <h2>Welcome</h2>
+        <button onclick="showScreen('vaultScreen')">Private Vault</button>
+        <button onclick="showScreen('filesScreen')">All Files</button>
+        <button onclick="lockApp()">Lock App</button>
+    </div>
+
+    <!-- Vault Screen -->
+    <div id="vaultScreen" class="screen">
+        <h2>🔐 Private Vault</h2>
+        <p>No files added yet</p>
+        <button onclick="goHome()">Back</button>
+    </div>
+
+    <!-- Files Screen -->
+    <div id="filesScreen" class="screen">
+        <h2>📁 All Files</h2>
+        <ul>
+            <li>Documents</li>
+            <li>Images</li>
+            <li>Videos</li>
+            <li>Audio</li>
+        </ul>
+        <button onclick="goHome()">Back</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
