@@ -37,17 +37,14 @@ function unlockApp() {
 
 /* NAVIGATION */
 function showScreen(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".screen")
+        .forEach(s => s.classList.remove("active"));
+
     document.getElementById(id).classList.add("active");
 }
 
-function goHome() {
-    showScreen("homeScreen");
-}
-
-function lockApp() {
-    showScreen("lockScreen");
-}
+function goHome() { showScreen("homeScreen"); }
+function lockApp() { showScreen("lockScreen"); }
 
 /* OPEN FOLDER */
 function openFolder(folder) {
@@ -63,7 +60,8 @@ function uploadFile() {
     if (!file) return;
 
     const url = URL.createObjectURL(file);
-    const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
+    const files =
+        JSON.parse(localStorage.getItem(currentFolder)) || [];
 
     files.push({
         name: file.name,
@@ -76,21 +74,24 @@ function uploadFile() {
     loadFiles();
 }
 
-/* LOAD & OPEN FILE */
+/* LOAD FILES + OPEN ON CLICK ✅ */
 function loadFiles() {
     fileList.innerHTML = "";
 
-    const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
+    const files =
+        JSON.parse(localStorage.getItem(currentFolder)) || [];
 
-    if (files.length === 0) {
+    if (!files.length) {
         fileList.innerHTML = "<li>No files</li>";
         return;
     }
 
-    files.forEach(file => {
+    files.forEach(f => {
         const li = document.createElement("li");
-        li.textContent = `${file.name} (${Math.round(file.size / 1024)} KB)`;
-        li.onclick = () => window.open(file.url, "_blank");
+        li.textContent =
+            `${f.name} (${Math.round(f.size / 1024)} KB)`;
+
+        li.onclick = () => window.open(f.url, "_blank");
         fileList.appendChild(li);
     });
 }
