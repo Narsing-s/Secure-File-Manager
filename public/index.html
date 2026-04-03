@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Secure Vault</title>
 
+    <!-- ✅ CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- 🔐 SET PIN SCREEN (FIRST TIME ONLY) -->
+<!-- 🔐 SET PIN (FIRST TIME) -->
 <div id="setPinScreen" class="screen">
     <h2>Set Your PIN</h2>
     <input type="password" id="newPin" placeholder="Enter new PIN">
@@ -35,7 +36,7 @@
 
 <!-- 📁 FILE MANAGER -->
 <div id="filesScreen" class="screen">
-    <h2>📁 Files</h2>
+    <h2>📁 Folders</h2>
     <button onclick="openFolder('documents')">Documents</button>
     <button onclick="openFolder('images')">Images</button>
     <button onclick="openFolder('videos')">Videos</button>
@@ -54,6 +55,7 @@
     <button onclick="showScreen('filesScreen')">Back</button>
 </div>
 
+<!-- ✅ JS -->
 <script src="script.js"></script>
 </body>
 </html>
