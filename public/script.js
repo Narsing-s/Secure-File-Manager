@@ -8,19 +8,15 @@ window.onload = () => {
 
 /* SET PIN */
 function setPin() {
-    const pin = newPin.value;
-    const confirm = confirmPin.value;
-
-    if (pin.length < 4) {
+    if (newPin.value.length < 4) {
         setPinError.textContent = "PIN must be at least 4 digits";
         return;
     }
-    if (pin !== confirm) {
+    if (newPin.value !== confirmPin.value) {
         setPinError.textContent = "PINs do not match";
         return;
     }
-
-    localStorage.setItem("userPin", pin);
+    localStorage.setItem("userPin", newPin.value);
     showScreen("lockScreen");
 }
 
@@ -37,24 +33,21 @@ function unlockApp() {
 
 /* NAVIGATION */
 function showScreen(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".screen").forEach(s =>
+        s.classList.remove("active")
+    );
     document.getElementById(id).classList.add("active");
 }
 
-function goHome() {
-    showScreen("homeScreen");
-}
-
-function lockApp() {
-    showScreen("lockScreen");
-}
+function goHome() { showScreen("homeScreen"); }
+function lockApp() { showScreen("lockScreen"); }
 
 /* OPEN FOLDER */
 function openFolder(folder) {
     currentFolder = folder;
     folderTitle.textContent = folder.toUpperCase();
     loadFiles();
-    showScreen("folderScreen");
+    showScreen("filesScreen");
 }
 
 /* UPLOAD FILE */
@@ -76,21 +69,40 @@ function uploadFile() {
     loadFiles();
 }
 
-/* LOAD & OPEN FILE */
+/* LOAD FILES */
 function loadFiles() {
     fileList.innerHTML = "";
 
     const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
 
-    if (files.length === 0) {
+    if (!files.length) {
         fileList.innerHTML = "<li>No files</li>";
         return;
     }
 
-    files.forEach(file => {
+    files.forEach((f, index) => {
         const li = document.createElement("li");
-        li.textContent = `${file.name} (${Math.round(file.size / 1024)} KB)`;
-        li.onclick = () => window.open(file.url, "_blank");
+
+        const span = document.createElement("span");
+        span.textContent = `${f.name} (${Math.round(f.size / 1024)} KB)`;
+        span.className = "file-name";
+        span.onclick = () => window.open(f.url, "_blank");
+
+        const del = document.createElement("button");
+        del.textContent = "✕";
+        del.className = "delete-btn";
+        del.onclick = () => deleteFile(index);
+
+        li.appendChild(span);
+        li.appendChild(del);
         fileList.appendChild(li);
     });
+}
+
+/* DELETE FILE ✅ */
+function deleteFile(index) {
+    const files = JSON.parse(localStorage.getItem(currentFolder)) || [];
+    files.splice(index, 1);
+    localStorage.setItem(currentFolder, JSON.stringify(files));
+    loadFiles();
 }
